@@ -1,7 +1,10 @@
 <% provide(:title, "Micropost - Edit") %>
-<h1>Editing Micropost</h1>
+<div class="center jumbotron">
+  <h1>Editing Micropost</h1>
+  <div class="center">
+    <%= render 'form', micropost: @micropost %>
 
-<%= render 'form', micropost: @micropost %>
-
-<%= link_to 'Show', @micropost %> |
-<%= link_to 'Back', microposts_path %>
+    <%= link_to 'Show', @micropost %> |
+    <%= link_to 'Back', microposts_path %>
+  </div>
+</div>

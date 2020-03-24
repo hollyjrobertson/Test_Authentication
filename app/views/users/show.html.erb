@@ -1,15 +1,19 @@
 <% provide(:title, "Users - Show") %>
-<p id="notice"><%= notice %></p>
+<div class="center jumbotron">
+  <div class="center">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @user.name %>
+    </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+    <p>
+      <strong>Email:</strong>
+      <%= @user.email %>
+    </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+    <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-lg btn-primary" %> |
+    <%= link_to 'Back', users_path, class: "btn btn-lg btn-primary" %>
+  </div>
+</div>

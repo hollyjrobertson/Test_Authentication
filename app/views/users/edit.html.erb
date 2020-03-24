@@ -1,7 +1,11 @@
 <% provide(:title, "Users - Edit") %>
-<h1>Editing User</h1>
+<div class="center jumbotron">
+  <h1>Editing User</h1>
+  <div class="center">
 
-<%= render 'form', user: @user %>
+    <%= render 'form', user: @user %>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+    <%= link_to 'Show', @user, class: "btn btn-lg btn-primary"  %> |
+    <%= link_to 'Back', users_path, class: "btn btn-lg btn-primary"  %>
+  </div>
+</div>

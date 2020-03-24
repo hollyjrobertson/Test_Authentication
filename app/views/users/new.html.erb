@@ -1,6 +1,10 @@
 <% provide(:title, "Users - New (SignUp") %>
-<h1>New User</h1>
+<div class="center jumbotron">
+  <h1>New User</h1>
+  <div class="center">
 
-<%= render 'form', user: @user %>
+    <%= render 'form', user: @user %>
 
-<%= link_to 'Back', users_path %>
+    <%= link_to 'Back', users_path, class: "btn btn-lg btn-primary" %>
+  </div>
+</div>
