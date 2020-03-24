@@ -7,6 +7,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   # Defines @base_title to be used in many tests
   def setup
     @base_title = "Ruby on Rails Tutorial Sample App"
+    @user = User.new(name: "Example User", email: "user@example.com")
   end
 
   # Test that verifies the root_path returns a 200 success code
@@ -69,7 +70,8 @@ class TheControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "Microposts - Index | #{@base_title}"
     puts name + " passed"
   end
-  # Test that tests the links
+
+  # Test that tests the links on navigation bar are there
   test "layout links" do
     get root_path
     assert_select "a[href=?]", root_path, count: 2
@@ -82,10 +84,76 @@ class TheControllerTest < ActionDispatch::IntegrationTest
     puts name + " passed"
   end
 
+  # Test that tests the signup path works
   test "should get signup" do
     get signup_path
     assert_response :success
     assert_select "title", "Sign Up | #{@base_title}"
+    puts name + " passed"
+  end
+
+  # Test that verifies the save user to db
+  test "should be valid" do
+    assert @user.valid?
+    puts name + " passed"
+  end
+
+  # Test that verifies a name is present before saving to db
+  test "name should be present" do
+    @user.name = "     "
+    assert_not @user.valid?
+    puts name + " passed"
+  end
+
+  # Test that verifies an email is present before saving to db
+  test "email should be present" do
+    @user.email = "     "
+    assert_not @user.valid?
+    puts name + " passed"
+  end
+
+  # Test that verifies a name is no longer than 50 characters before saving to db
+  test "name should not be too long" do
+    @user.name = "a" * 51
+    assert_not @user.valid?
+    puts name + " passed"
+  end
+
+  # Test that verifies an email is no longer than 255 characters before saving to db
+  test "email should not be too long" do
+    @user.email = "a" * 256
+    assert_not @user.valid?
+    puts name + " passed"
+  end
+
+  # Test that verifies email address if formatted correctly before saving to db
+  test "email validation should accept valid addresses" do
+    valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
+                         first.last@foo.jp alice+bob@baz.cn]
+    valid_addresses.each do |valid_address|
+      @user.email = valid_address
+      assert @user.valid?, "#{valid_address.inspect} should be valid"
+    end
+    puts name + " passed"
+  end
+
+  # Test that verifies a user won't be saved to db due to an incorrectly formatted email
+  test "email validation should reject invalid addresses" do
+    invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
+                           foo@bar_baz.com foo@bar+baz.com]
+    invalid_addresses.each do |invalid_address|
+      @user.email = invalid_address
+      assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
+    end
+    puts name + " passed"
+  end
+
+  # Test that verifies a unique email must be used for a user before saving to db
+  test "email addresses should be unique" do
+    duplicate_user = @user.dup
+    duplicate_user.email = @user.email.upcase
+    @user.save
+    assert_not duplicate_user.valid?
     puts name + " passed"
   end
 
