@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= full_title(yield(:title)) %></title>
-    <%= csrf_meta_tags %>
-    # Parentheses on function calls are optional.
+    <!-- Parentheses on function calls are optional -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
   </head>
-  <nav>
-    <ul>
-      <li><%= link_to "Home", static_pages_home_path %></li>
-      <li><%= link_to "About", static_pages_about_path %></li>
-      <li><%= link_to "Contact", static_pages_contact_path %></li>
-      <li><%= link_to "Help", static_pages_help_path %></li>
-      <li><%= link_to "Users", users_path %></li>
-      <li><%= link_to "Microposts", microposts_path %></li>
-    </ul>
-  </nav>
   <body>
+  <%= render 'layouts/header' %>
+  <div class="container">
     <%= yield %>
+  </div>
   </body>
-</html>
+ </html>
