@@ -11,7 +11,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   end
 
   # Test that verifies the root_path returns a 200 success code
-  test "should get root" do
+  test "root path" do
     get root_path
     assert_response :success
     puts name + " passed"
@@ -19,7 +19,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
 
   # Test that verifies the view/static_pages/home.html.erb returns a 200 success code
   # Test that verifies the title of view/static_pages/home.html.erb is "Home + @base_title"
-  test "should get home" do
+  test "home path" do
     get home_path
     assert_response :success
     assert_select "title", "Home | #{@base_title}"
@@ -28,7 +28,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
 
   # Test that verifies the view/static_pages/help.html.erb returns a 200 success code
   # Test that verifies the title of view/static_pages/help.html.erb is "Help + @base_title"
-  test "should get help" do
+  test "help path" do
     get help_path
     assert_response :success
     assert_select "title", "Help | #{@base_title}"
@@ -37,7 +37,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
 
   # Test that verifies the view/static_pages/about.html.erb returns a 200 success code
   # Test that verifies the title of view/static_pages/about.html.erb is "About + @base_title"
-  test "should get about" do
+  test "about path" do
     get about_path
     assert_response :success
     assert_select "title", "About | #{@base_title}"
@@ -46,7 +46,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
 
   # Test that verifies the view/static_pages/contact.html.erb returns a 200 success code
   # Test that verifies the title of view/static_pages/contact.html.erb is "Contact + @base_title"
-  test "should get contact" do
+  test "contact path" do
     get contact_path
     assert_response :success
     assert_select "title", "Contact | #{@base_title}"
@@ -55,7 +55,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
 
   # Test that verifies the view/users/index.html.erb returns a 200 success code
   # Test that verifies the title of view/static_pages/contact.html.erb is "Users - Index + @base_title"
-  test "should get users" do
+  test "view users" do
     get users_path
     assert_response :success
     assert_select "title", "Users - Index | #{@base_title}"
@@ -64,7 +64,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
 
   # Test that verifies the view/users/index.html.erb returns a 200 success code
   # Test that verifies the title of view/static_pages/contact.html.erb is "Users - Index + @base_title"
-  test "should get microposts" do
+  test "view microposts" do
     get microposts_path
     assert_response :success
     assert_select "title", "Microposts - Index | #{@base_title}"
@@ -85,7 +85,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   end
 
   # Test that tests the signup path works
-  test "should get signup" do
+  test "signup path" do
     get signup_path
     assert_response :success
     assert_select "title", "Sign Up | #{@base_title}"
@@ -93,34 +93,34 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   end
 
   # Test that verifies the save user to db
-  test "should be valid" do
+  test "save user" do
     assert @user.valid?
     puts name + " passed"
   end
 
   # Test that verifies a name is present before saving to db
-  test "name should be present" do
+  test "name present" do
     @user.name = "     "
     assert_not @user.valid?
     puts name + " passed"
   end
 
   # Test that verifies an email is present before saving to db
-  test "email should be present" do
+  test "email present" do
     @user.email = "     "
     assert_not @user.valid?
     puts name + " passed"
   end
 
   # Test that verifies a name is no longer than 50 characters before saving to db
-  test "name should not be too long" do
+  test "name length" do
     @user.name = "a" * 51
     assert_not @user.valid?
     puts name + " passed"
   end
 
   # Test that verifies an email is no longer than 255 characters before saving to db
-  test "email should not be too long" do
+  test "email length" do
     @user.email = "a" * 256
     assert_not @user.valid?
     puts name + " passed"
