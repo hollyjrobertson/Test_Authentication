@@ -162,12 +162,23 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   test "password should be present (nonblank)" do
     @user.password = @user.password_confirmation = " " * 6
     assert_not @user.valid?
+    puts name + " passed"
   end
 
   # Test that verifies if a password is a certain length before saving to db
   test "password should have a minimum length" do
     @user.password = @user.password_confirmation = "a" * 5
     assert_not @user.valid?
+    puts name + " passed"
+  end
+
+  # Test that an email address is lower-case before being saved to db
+  test "email addresses should be saved as lower-case" do
+    mixed_case_email = "Foo@ExAMPle.CoM"
+    @user.email = mixed_case_email
+    @user.save
+    assert_equal mixed_case_email.downcase, @user.reload.email
+    puts name + " passed"
   end
 
 end
