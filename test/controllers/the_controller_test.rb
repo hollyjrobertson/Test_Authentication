@@ -7,7 +7,8 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   # Defines @base_title to be used in many tests
   def setup
     @base_title = "Ruby on Rails Tutorial Sample App"
-    @user = User.new(name: "Example User", email: "user@example.com")
+    @user = User.new(name: "Example User", email: "user@example.com",
+                     password: "foobar", password_confirmation: "foobar")
   end
 
   # Test that verifies the root_path returns a 200 success code
@@ -155,6 +156,18 @@ class TheControllerTest < ActionDispatch::IntegrationTest
     @user.save
     assert_not duplicate_user.valid?
     puts name + " passed"
+  end
+
+  # Test that verifies if a password is present before saving to db
+  test "password should be present (nonblank)" do
+    @user.password = @user.password_confirmation = " " * 6
+    assert_not @user.valid?
+  end
+
+  # Test that verifies if a password is a certain length before saving to db
+  test "password should have a minimum length" do
+    @user.password = @user.password_confirmation = "a" * 5
+    assert_not @user.valid?
   end
 
 end
