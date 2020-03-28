@@ -139,16 +139,6 @@ footer ul li {
   margin-left: 15px;
 }
 
-/* miscellaneous */
-
-.debug_dump {
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
-}
-
 /* sidebar */
 
 aside {
@@ -212,4 +202,11 @@ input {
   .form-control {
     color: red;
   }
+}
+
+.notice {
+  color: red;
+  border: 2px solid red;
+  background-color: #FF7F7F;
+  padding: 2%;
 }

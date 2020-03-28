@@ -54,6 +54,22 @@ class TheControllerTest < ActionDispatch::IntegrationTest
     puts name + " passed"
   end
 
+  # Test that verifies the view/sessions/new.html.erb returns a 200 success code
+  # Test that verifies the title of view/sessions/new.html.erb is "Log in + @base_title"
+  test "login path" do
+    get login_path
+    assert_response :success
+    assert_select "title", "Log in | #{@base_title}"
+    puts name + " passed"
+  end
+
+  # Test that verifies the logout path returns a 200 success code
+  #test "logout path" do
+  # delete logout_path
+  # assert_response :success
+  # puts name + " passed"
+  #end
+
   # Test that verifies the view/users/index.html.erb returns a 200 success code
   # Test that verifies the title of view/static_pages/contact.html.erb is "Users - Index + @base_title"
   test "view users" do
