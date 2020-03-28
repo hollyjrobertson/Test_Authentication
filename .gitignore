@@ -21,3 +21,6 @@
 # Ignore Spring files.
 /spring/*.pid
 Gemfile.lock
+
+# Ignore application configuration
+/config/application.yml
