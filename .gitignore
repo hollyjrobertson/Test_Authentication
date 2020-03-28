@@ -20,3 +20,4 @@
 
 # Ignore Spring files.
 /spring/*.pid
+Gemfile.lock
