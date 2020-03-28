@@ -7,8 +7,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   # Defines @base_title to be used in many tests
   def setup
     @base_title = "Ruby on Rails Tutorial Sample App"
-    @user = User.new(name: "Example User", email: "user@example.com",
-                     password: "foobar", password_confirmation: "foobar")
+    @user = users(:michael)
   end
 
   # Test that verifies the root_path returns a 200 success code
@@ -96,8 +95,7 @@ class TheControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", about_path
     assert_select "a[href=?]", contact_path
     assert_select "a[href=?]", signup_path
-    assert_select "a[href=?]", users_path
-    assert_select "a[href=?]", microposts_path
+    assert_select "a[href=?]", login_path
     puts name + " passed"
   end
 
@@ -109,9 +107,9 @@ class TheControllerTest < ActionDispatch::IntegrationTest
     puts name + " passed"
   end
 
-  # Test that verifies the save user to db
+  # Test that verifies the save user doesn't save to db
   test "save user" do
-    assert @user.valid?
+    assert !@user.valid?
     puts name + " passed"
   end
 
@@ -140,17 +138,6 @@ class TheControllerTest < ActionDispatch::IntegrationTest
   test "email length" do
     @user.email = "a" * 256
     assert_not @user.valid?
-    puts name + " passed"
-  end
-
-  # Test that verifies email address if formatted correctly before saving to db
-  test "email validation should accept valid addresses" do
-    valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
-                         first.last@foo.jp alice+bob@baz.cn]
-    valid_addresses.each do |valid_address|
-      @user.email = valid_address
-      assert @user.valid?, "#{valid_address.inspect} should be valid"
-    end
     puts name + " passed"
   end
 
@@ -188,12 +175,34 @@ class TheControllerTest < ActionDispatch::IntegrationTest
     puts name + " passed"
   end
 
-  # Test that an email address is lower-case before being saved to db
-  test "email addresses should be saved as lower-case" do
-    mixed_case_email = "Foo@ExAMPle.CoM"
-    @user.email = mixed_case_email
-    @user.save
-    assert_equal mixed_case_email.downcase, @user.reload.email
+  # Test that verifies if a user can signup
+  test "valid signup information" do
+    get signup_path
+    assert_difference 'User.count', 1 do
+      post users_path, params: { user: { name:  "Example User",
+                                         email: "user@example.com",
+                                         password:              "password",
+                                         password_confirmation: "password" } }
+      follow_redirect!
+    end
+    puts name + " passed"
+  end
+
+  # Test that verifies if a user can login
+  test "verify a user can login" do
+    get login_path
+    log_in @user
+    assert_equal(is_logged_in?, true, "True")
+    puts name + " passed"
+  end
+
+  # Test that verifies if a user can logout
+  test "verify a user can login then logout" do
+    get login_path
+    log_in @user
+    assert_equal(is_logged_in?, true, "True")
+    log_out @user
+    assert_equal(is_logged_in?, false, "False")
     puts name + " passed"
   end
 
