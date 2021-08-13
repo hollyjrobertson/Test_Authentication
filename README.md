@@ -1,2 +1,2 @@
-# Dummy Project to learn authentication in Ruby on Rails
+Dummy Project to learn authentication in Ruby on Rails
 
